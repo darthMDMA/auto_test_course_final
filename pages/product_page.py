@@ -8,11 +8,11 @@ import math
 
 class ProductPage(BasePage):
     def check_all_asserts(self):
-        self.add_product_to_trash()
+        self.add_product_to_basket()
         self.alert_of_added_product()
         self.basket_cost_mesage()
 
-    def add_product_to_trash(self):
+    def add_product_to_basket(self):
         add_product_button = self.browser.find_element(*AddProductLocators.ADD_PRODUCT)
         add_product_button.click()
         self.solve_quiz_and_get_code()
@@ -31,7 +31,7 @@ class ProductPage(BasePage):
         assert price == message, "сообщение со стоимостью корзины не найдено либо цена не совпадает"
 
     def guest_cant_see_success_message_after_adding_product_to_basket(self):
-        assert not self.is_not_element_present(*AddProductLocators.SUCCESS_MESSAGE), \
+        assert self.is_not_element_present(*AddProductLocators.SUCCESS_MESSAGE), \
             "Success message is presented, but should not be"
 
     def guest_cant_see_success_message(self):
@@ -39,7 +39,7 @@ class ProductPage(BasePage):
             "Success message is presented, but should not be"
 
     def message_disappeared_after_adding_product_to_basket(self):
-        assert not self.is_disappeared(*AddProductLocators.SUCCESS_MESSAGE), \
+        assert self.is_disappeared(*AddProductLocators.SUCCESS_MESSAGE), \
             "Success message is presented, but should not be"
 
 
